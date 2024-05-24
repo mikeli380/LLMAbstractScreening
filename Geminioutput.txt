@@ -1,0 +1,152 @@
+Gemini Full Output: Abstract, Response
+
+--- Abstract 5 ---
+
+Title: Chinese medicine Banxia-houpu decoction regulates c-fos expression in the brain regions in chronic mild stress model in rats.
+PMID: https://pubmed.ncbi.nlm.nih.gov/15103665
+Abstract: Banxia-houpu decoction is a safe and effective traditional Chinese medicinal formula used in the treatment of mild and manic-depressive disorders for centuries. There has been increasing interest in its therapeutic application in depression. However, the mechanisms behind behavioural changes are still poorly understood. Chronic mild stress (CMS)-induced preference behaviour change has been used as a model to predict the clinical efficacy of many types of antidepressant treatment. Both EtOH and water extracts (AE and WE) of Banxia-houpu decoction exhibited a significantly increased sucrose intake in the CMS model in rats, but there was no effect in unstressed animals. In the present study, it was found that the c-fos expression in cerebral cortex, hippocampus and striatum corpora were very high in the CMS model in rats. WE and AE at a dose of 130 mg/kg exhibited a significantly decreased c-fos expression in the cerebral regions in CMS model in rats, respectively. The former was more potent than the latter. However, no significant changes in the c-fos expression were observed in unstressed rats treated with the decoction. Fluoxetine not only significantly reduced c-fos expression in all regions in the CMS model in rats, but only showed a marked decrease in c-fos expression in the hippocampus in unstressed animals. A different molecular mechanism of Banxia-houpu decoction and fluoxetine may be implied. The cerebral cortex, hippocampus and striatum conpora might be important structural substrates in the central nervous system mediating the section of the Banxia-houpu decoction on preference behaviour in CMS-induced rats, and fos protein might be the common substrate of the signal transduction process of the decoction.
+
+--- Response 5 ---
+## Overall Assessment: 
+
+**Yes**
+
+## Inclusion Criteria:
+
+1. **Yes** 
+2. **Yes**
+3. **Yes**
+4. **Yes**
+
+## Exclusion Criteria:
+
+1. **No**
+2. **No**
+3. **No**
+4. **No**
+
+## Explanation:
+
+This study is eligible for inclusion in a systematic review on animal depression. It uses a rat model of depression (CMS) with a control group, investigates a potential treatment (Banxia-houpu decoction), and measures behavioral (sucrose intake) and neurochemical (c-fos expression) outcomes. It does not fall under any of the exclusion criteria. 
+
+
+--- Abstract 19 ---
+
+Title: Adaptation of monoaminergic responses to phencyclidine in nucleus accumbens and prefrontal cortex following repeated treatment with fluoxetine or imipramine.
+PMID: https://pubmed.ncbi.nlm.nih.gov/12468026
+Abstract: The adaptive neuronal changes that follow chronic administration of antidepressant drugs are thought to underlie clinical improvement in patient populations. Recent evidence suggests that alterations specific to N-methyl-D-aspartate (NMDA) receptors may be a final common pathway to antidepressant action. To investigate this possibility, we sought to establish the effects of chronic fluoxetine or imipramine treatment on the monoamine stimulating effect of the non-competitive NMDA antagonist phencyclidine. Male, Sprague-Dawley rats (n=9/group) were treated with saline (1 ml/kg, i.p.), imipramine (10 mg/kg, i.p.) or fluoxetine (10 mg/kg, i.p.) once daily for 14 consecutive days. After a 7-day drug-free period, animals given an acute challenge of either saline or phencyclidine (5 mg/kg, i.p.). One hour later, animals were killed, brains were removed, and the prefrontal cortex, striatum, and nucleus accumbens were dissected. Samples were assayed for the monoamines and their primary metabolites by HPLC. Repeated treatment with fluoxetine or imipramine did not alter baseline dopamine or serotonin turnover. Acute phencyclidine treatment increased prefrontal cortex and nucleus accumbens dopamine turnover in saline-treated animals (P<0.01); however, the effect in the nucleus accumbens was prevented in animals pretreated with imipramine or fluoxetine. Acute phencyclidine challenge also increased serotonin turnover in prefrontal cortex of saline- or imipramine-pretreated rats (P<0.01), though this effect was attenuated in animals pretreated with fluoxetine. Overall, the data suggest that repeated antidepressant treatment alters monoamine turnover in specific brain regions in response to blockade of NMDA receptors. The data highlight the importance of adaptive responses to NMDA receptors resulting from chronic antidepressant treatment.
+
+--- Response 19 ---
+## Overall Assessment: 
+
+**Yes**
+
+## Inclusion Criteria:
+
+1. **Yes** 
+2. **Yes**
+3. **Yes**
+4. **Yes**
+
+## Exclusion Criteria:
+
+1. **No**
+2. **No**
+3. **No**
+4. **No**
+
+## Explanation:
+
+This study investigates the effects of chronic antidepressant treatment (fluoxetine and imipramine) on rats, using phencyclidine to induce depressive-like behavior. It includes a control group (saline), measures neurochemical outcomes (monoamine turnover), and aims to understand the adaptive changes in the brain following antidepressant treatment. Therefore, it meets all the inclusion criteria and does not fall under any of the exclusion criteria. 
+
+
+--- Abstract 20 ---
+
+Title: Norepinephrine transporter knock-out alters expression of the genes connected with antidepressant drugs action.
+PMID: https://pubmed.ncbi.nlm.nih.gov/25451113
+Abstract: Norepinephrine transporter knock-out mice (NET-KO) exhibit depression-resistant phenotypes. They manifest significantly shorter immobility times in both the forced swim test and the tail suspension test. Moreover, biochemical studies have revealed the up-regulation of other monoamine transporters (dopamine and serotonin) in the brains of NET-KO mice, similar to the phenomenon observed after the chronic pharmacological blockade of norepinephrine transporter by desipramine in wild-type (WT) animals. NET-KO mice are also resistant to stress, as we demonstrated previously by measuring plasma corticosterone concentration. In the present study, we used a microdissection technique to separate target brain regions and the TaqMan Low Density Array approach to test the expression of a group of genes in the NET-KO mice compared with WT animals. A group of genes with altered expression were identified in four brain structures (frontal and cingulate cortices, dentate gyrus of hippocampus and basal-lateral amygdala) of NET-KO mice compared with WT mice. These genes are known to be altered by antidepressant drugs administration. The most interesting gene is Crh-bp, which modulates the activity of corticotrophin--releasing hormone (CRH) and several CRH-family members. Generally, genetic disturbances within noradrenergic neurons result in biological changes, such as in signal transduction and intercellular communication, and may be linked to changes in noradrenaline levels in the brains of NET-KO mice.
+
+--- Response 20 ---
+## Overall Assessment: 
+
+**Yes**
+
+## Inclusion Criteria:
+
+1. **Yes** 
+2. **Yes**
+3. **Yes**
+4. **Yes**
+
+## Exclusion Criteria:
+
+1. **No**
+2. **No**
+3. **No**
+4. **No**
+
+## Explanation:
+
+This study is eligible for inclusion in a systematic review on animal depression. It uses a genetic knockout mouse model (NET-KO) to investigate depression-resistant phenotypes, comparing them to wild-type controls. The study examines behavioral outcomes (forced swim test, tail suspension test), neurochemical changes (monoamine transporter expression), and gene expression in various brain regions. This aligns with the inclusion criteria, focusing on animal models of depression, inducing depressive-like phenotypes, and measuring various biological outcomes. The study does not fall under any of the exclusion criteria, as it is not a review, human study, or solely focused on metabolic outcomes. 
+ 
+
+
+--- Abstract 49 ---
+
+Title: Chronobiological disturbances with hyperthermia and hypercortisolism induced by chronic mild stress in rats.
+PMID: https://pubmed.ncbi.nlm.nih.gov/16904763
+Abstract: The chronic mild stress (CMS) model has been established as a realistic model of depressive disorder as it simulates anhedonia. In the present study, the consumption of sucrose solution was decreased in the rats exposed to CMS, which coincided with many published studies. Since depression is a multifaceted disorder, and a number of symptoms may be present, including circadian rhythm disturbances, we attempted to find the chronobiological abnormalities in CMS rats. After 4-week of the stress procedure, the rhythmic pattern of rectal temperature in the CMS group was extinguished. In particular, the temperature in the CMS group in the light phase was significantly higher than that in the control group. The plasma corticosterone levels in the CMS group were remarkably increased in the light phase compared to the control group, but not in the dark phase. It was concluded that the CMS procedure caused the disturbance of circadian rhythms with hyperthermia and hypercortisolism.
+
+--- Response 49 ---
+## Overall Assessment: 
+
+**Yes**
+
+## Inclusion Criteria:
+
+1. **Yes** 
+2. **Yes**
+3. **Yes**
+4. **Yes**
+
+## Exclusion Criteria:
+
+1. **No**
+2. **No**
+3. **No**
+4. **No**
+
+## Explanation:
+
+This study meets all the inclusion criteria and does not meet any of the exclusion criteria. It uses a chronic mild stress model in rats to induce depressive-like phenotypes, including anhedonia and chronobiological disturbances. The study includes a control group and measures behavioral (sucrose consumption) and physiological (rectal temperature, corticosterone levels) outcomes. Therefore, it is eligible for inclusion in a systematic review on animal depression. 
+
+
+--- Abstract 51 ---
+
+Title: Genetic animal models of depression and ethanol preference provide support for cholinergic and serotonergic involvement in depression and alcoholism.
+PMID: https://pubmed.ncbi.nlm.nih.gov/1386257
+Abstract: The present article summarizes some comparative studies of the Fawn-Hooded (FH) rat, a potential animal model of ethanol preference, and the Flinders Sensitive Line (FSL) rat, a potential animal model of depression. Both FH and FSL rats exhibit high degrees of immobility in the forced swim test and have difficulty learning a two-way active avoidance task. However, there were no differences between the FH and FSL rats in the elevated plus maze. Studies of ethanol preference indicated high rates of ethanol intake (greater than 4 g/kg) and preference (greater than 50%) in the FH rats, but low rates of ethanol intake (less than 1.1 g/kg) and preference (less than 20%) in FSL rats. It is concluded that the FSL rats exhibit behaviors consistent with their being an animal model of depression, whereas the FH rats exhibit features consistent with their being an animal model of both depression and alcoholism. Psychopharmacological challenges indicated that both FSL and FH rats were more sensitive to the hypothermic effects of oxotremorine, a muscarinic agonist. However, FSL rats were also more sensitive to serotonergic agonists, and some of the present results and other investigators have reported serotonergic subsensitivity in the FH rats. Thus, FSL rats exhibit both cholinergic and serotonergic supersensitivity, whereas FH rats exhibit cholinergic supersensitivity but normal or reduced serotonergic sensitivity. Progeny from a genetic cross between FH and FSL rats exhibit cholinergic supersensitivity and have high ethanol preference scores. These data are consistent with genetic models suggesting that ethanol preference may be influenced by dominant genes, whereas cholinergic sensitivity may be influenced by recessive genes.
+
+--- Response 51 ---
+## Overall Assessment: 
+
+**Yes**
+
+## Inclusion Criteria:
+
+1. **Yes** 
+2. **Yes**
+3. **Yes**
+4. **Yes**
+
+## Exclusion Criteria:
+
+1. **No**
+2. **No**
+3. **No**
+4. **No**
+
+## Explanation:
+
+This article presents primary data on two genetic animal models of depression (Fawn-Hooded and Flinders Sensitive Line rats) and compares their behavioral responses in various tests, including the forced swim test and ethanol preference. It also investigates their sensitivity to cholinergic and serotonergic agonists. The study includes appropriate control groups and focuses on inducing depressive-like phenotypes in animals. The outcomes measured include behavioral, neurochemical, and pharmacological responses. Therefore, it meets all the inclusion criteria and does not meet any of the exclusion criteria. 
+

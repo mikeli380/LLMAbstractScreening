@@ -1,0 +1,6 @@
+Gemini Criteria Output: Abstract Index, Gemini Overall Result, Gemini Criteria Result 1, Gemini Criteria Result 2 ...
+5, 1, 1, 1, 1, 1, 0, 0, 0, 0
+19, 1, 1, 1, 1, 1, 0, 0, 0, 0
+20, 1, 1, 1, 1, 1, 0, 0, 0, 0
+49, 1, 1, 1, 1, 1, 0, 0, 0, 0
+51, 1, 1, 1, 1, 1, 0, 0, 0, 0
