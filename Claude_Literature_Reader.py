@@ -36,13 +36,6 @@ criterialist = [0]
 #Initialize Time in Seconds to Wait in Between Claude Queries
 sleeptime = 1
 
-#Claude Query Settings
-temperature = .5
-max_tokens = 20
-top_p = 1
-frequency_penalty = 0
-presence_penalty = 0
-
 #####Do not modify the rest of the script#####
 #Initialize Criteria Outcome (1 for Meets Criteria, 0 for Does Not Meet)
 prompttokensused = 0

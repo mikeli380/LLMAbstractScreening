@@ -25,8 +25,6 @@ sampletype = "mrandom"
 samplesize = 32
 inclusionvalue = 1
 
-
-
 #Clear Output Files? Type "Yes" to clear output files
 clearoutput = "Yes"
 

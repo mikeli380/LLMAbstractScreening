@@ -39,14 +39,6 @@ os.environ["REPLICATE_API_TOKEN"] = ""
 #Initialize Time in Seconds to Wait in Between Llama Queries
 sleeptime = 1
 
-#Llama Query Settings
-temperature = .5
-max_tokens = 20
-top_p = 1
-frequency_penalty = 0
-presence_penalty = 0
-
-
 #####Do not modify the rest of the script#####
 #Initialize Criteria Outcome (1 for Meets Criteria, 0 for Does Not Meet)
 criteriaoutcome = 0
