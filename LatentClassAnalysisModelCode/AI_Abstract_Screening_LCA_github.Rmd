@@ -1,0 +1,240 @@
+---
+title: "AI-Abstract-LCA-github"
+author: "Xianming Tan"
+date: "2024-06-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+## Overview
+
+This report summarizes the performance of LLM-based methods (ChatGPT3.5, ChatGPT 4.0, Google BARD, Meta LlAMA) for abstract screening in systematic review and in meta analysis.   
+
+This Rmd tries to examine the performance of Latent Class Analysis (LCA) based on AI-tool decisions and check if a more accurate "collective" decision is possible.
+
+```{r load-data, echo=FALSE}
+load(file = "All_Data_3Database.RData")
+```
+
+### Analysis of Bannach-Brown2016
+
+**Data Preparation**
+
+```{r BB2016-data-prep, echo=FALSE}
+data_list <- data_list_1 
+
+idx <- seq(1, 8, by=1)
+
+All_Cases <- c(data_list[[ idx[1] ]]$`Abstract ID`,  data_list[[ idx[2] ]]$`Abstract ID`) ## all cases/controls ID
+for (ii in seq(1, 8, by=2) ){ ## ii <- 1
+  tmp <-  rbind(data_list[[ii]], data_list[[ii+1]]) 
+  All_Cases <- cbind(All_Cases, tmp[, -1]) ## keep all but ID ... 
+}
+myvars <- c("_Overall", "_Inc1", "_Inc2", "_Inc3", "_Inc4", "_Exc1", "_Exc2", "_Exc3", "_Exc4")
+colnames(All_Cases) <- c("Abstract", 
+                         paste0("PaLM_BARD", myvars), 
+                         paste0("Llama", myvars),
+                         paste0("ChatGPT35", myvars), 
+                         paste0("ChatGPT40", myvars))
+All_Cases <- data.frame(All_Cases)
+
+## check for NA's
+# apply(is.na(All_Cases), 1, sum) ## by obs 
+# apply(is.na(All_Cases), 2, sum) ## by columns, most of them from BARD, 1 from LLAMA  
+
+## treat NA as 0, (for the LLAMA part, with only 1 obs with NA)
+All_abs <-  All_Cases
+All_abs[is.na(All_abs)] <- 0
+
+All_abs_BB2016 <- All_abs[, -c(1+(1:9))] ## remove PaLM_BARD
+```
+
+**Function for conducting model-based clustering: LCA**
+
+```{r LCA-Routine, echo=FALSE}
+library(poLCA)
+
+xtan_LCA <- function(mydata = All_abs_BB2016[, -1], f = myf, idx = 100){
+  ## idx: the first idx obs belong to negative ... 
+  ##      the remaining to positive 
+  
+  All_abs_Bin <- 1 + mydata  
+  lca_model_2 <- poLCA(f, data = All_abs_Bin, nclass = 2, verbose = FALSE)
+  lca_model_3 <- poLCA(f, data = All_abs_Bin, nclass = 3, verbose = FALSE)
+  lca_model_4 <- poLCA(f, data = All_abs_Bin, nclass = 4, verbose = FALSE)
+  lca_model_5 <- poLCA(f, data = All_abs_Bin, nclass = 5, verbose = FALSE)
+  lca_model_6 <- poLCA(f, data = All_abs_Bin, nclass = 6, verbose = FALSE)
+  
+  my_criteria <- cbind( c(2:6),
+      rbind(
+      c(lca_model_2$Gsq, lca_model_2$aic, lca_model_2$bic),
+      c(lca_model_3$Gsq, lca_model_3$aic, lca_model_3$bic),
+      c(lca_model_4$Gsq, lca_model_4$aic, lca_model_4$bic),
+      c(lca_model_5$Gsq, lca_model_5$aic, lca_model_5$bic),
+      c(lca_model_6$Gsq, lca_model_6$aic, lca_model_6$bic) 
+    )
+  )
+  colnames(my_criteria) <- c("TotClass", "Gsq", "aic", "bic")
+
+  K2_LCA_tab <- table(lca_model_2$predclass,  c(rep(0, idx), rep(1, nrow(mydata) - idx ) )  )
+  K3_LCA_tab <- table(lca_model_3$predclass,  c(rep(0, idx), rep(1, nrow(mydata) - idx ) )  )
+  K4_LCA_tab <- table(lca_model_4$predclass,  c(rep(0, idx), rep(1, nrow(mydata) - idx ) )  )
+  K5_LCA_tab <- table(lca_model_5$predclass,  c(rep(0, idx), rep(1, nrow(mydata) - idx ) )  )
+  K6_LCA_tab <- table(lca_model_6$predclass,  c(rep(0, idx), rep(1, nrow(mydata) - idx ) )  )
+  
+  return( list(lca_model_2 = lca_model_2,
+               lca_model_3 = lca_model_3, 
+               lca_model_4 = lca_model_4, 
+               lca_model_5 = lca_model_5, 
+               lca_model_6 = lca_model_6, 
+               my_criteria = my_criteria,
+               K2_LCA_tab = K2_LCA_tab, 
+               K3_LCA_tab = K3_LCA_tab, 
+               K4_LCA_tab = K4_LCA_tab, 
+               K5_LCA_tab = K5_LCA_tab, 
+               K6_LCA_tab = K6_LCA_tab 
+               ) 
+          )    
+}
+
+```
+
+#### LCA approach for Bannach-Brown2016 
+
+```{r Bannach-Brown2016-LCA, echo=FALSE}
+
+myf <- cbind(Llama_Overall,     Llama_Inc1,        Llama_Inc2,        Llama_Inc3,        Llama_Inc4,       
+ Llama_Exc1,        Llama_Exc2,        Llama_Exc3,        Llama_Exc4,        ChatGPT35_Overall, ChatGPT35_Inc1,    ChatGPT35_Inc2,   
+ ChatGPT35_Inc3,    ChatGPT35_Inc4,   ChatGPT35_Exc1,    ChatGPT35_Exc2,    ChatGPT35_Exc3,    ChatGPT35_Exc4,    ChatGPT40_Overall,
+ ChatGPT40_Inc1,    ChatGPT40_Inc2,    ChatGPT40_Inc3,    ChatGPT40_Inc4,    ChatGPT40_Exc1,    ChatGPT40_Exc2,    ChatGPT40_Exc3,   
+ ChatGPT40_Exc4)~1
+
+myLCA <- xtan_LCA(mydata = All_abs_BB2016[, -1], f = myf, idx = 100)
+knitr::kable( myLCA$my_criteria)
+
+cat("Cross-tab of true label and LCA-derived class labels \n")
+
+knitr::kable( myLCA$K2_LCA_tab )
+knitr::kable( myLCA$K3_LCA_tab )
+knitr::kable( myLCA$K4_LCA_tab )
+knitr::kable( myLCA$K5_LCA_tab )
+knitr::kable( myLCA$K6_LCA_tab )
+```
+
+
+### Analysis of Meijboom 2021 
+
+**Data Preparation**
+
+```{r Mj2021-data-prep, echo=FALSE}
+data_list <- data_list_2 
+
+idx <- seq(1, 8, by=1)
+
+All_Cases <- c(data_list[[ idx[1] ]]$`Abstract ID`,  data_list[[ idx[2] ]]$`Abstract ID`) ## all cases/controls ID
+for (ii in seq(1, 8, by=2) ){ ## ii <- 1
+  tmp <-  rbind(data_list[[ii]], data_list[[ii+1]]) 
+  All_Cases <- cbind(All_Cases, tmp[, -1]) ## keep all but ID ... 
+}
+myvars <- c("_Overall", "_Inc1", "_Inc2", "_Inc3", "_Inc4", "_Inc5", "_Inc6")
+colnames(All_Cases) <- c("Abstract", 
+                         paste0("ChatGPT35", myvars), 
+                         paste0("ChatGPT40", myvars),
+                         paste0("Llama", myvars), 
+                         paste0("PaLM_BARD", myvars) 
+                         )
+All_Cases <- data.frame(All_Cases[, c(1:29)])
+
+## check for NA's
+# apply(is.na(All_Cases), 1, sum) ## by obs 
+# apply(is.na(All_Cases), 2, sum) ## by columns, most of them from BARD, 1 from LLAMA  
+
+## treat NA as 0, (for the LLAMA part, with only 1 obs with NA)
+All_abs <-  All_Cases
+All_abs[is.na(All_abs)] <- 0
+
+All_abs_Mj2021 <- All_abs[, -c(22+(1:7))] ## remove PaLM_BARD
+```
+
+#### LCA approach for Meijboom 2021 
+
+```{r Mj2021-LCA, echo=FALSE}
+myf <- cbind(Llama_Overall,     Llama_Inc1,        Llama_Inc2,        Llama_Inc3,        Llama_Inc4,   Llama_Inc5,        Llama_Inc6,      
+ ChatGPT35_Overall, ChatGPT35_Inc1,    ChatGPT35_Inc2,  ChatGPT35_Inc3,    ChatGPT35_Inc4,  ChatGPT35_Inc5,    ChatGPT35_Inc6,     
+ ChatGPT40_Overall, ChatGPT40_Inc1,    ChatGPT40_Inc2,  ChatGPT40_Inc3,    ChatGPT40_Inc4,  ChatGPT40_Inc5,    ChatGPT40_Inc6)~1
+
+myLCA <- xtan_LCA(mydata = All_abs_Mj2021[, -1], f = myf, idx = 100)
+knitr::kable( myLCA$my_criteria)
+
+cat("Cross-tab of true label and LCA-derived class labels \n")
+
+knitr::kable( myLCA$K2_LCA_tab )
+knitr::kable( myLCA$K3_LCA_tab )
+knitr::kable( myLCA$K4_LCA_tab )
+knitr::kable( myLCA$K5_LCA_tab )
+knitr::kable( myLCA$K6_LCA_tab )
+```
+
+### Analysis of Menon 2022
+
+**Data preparation**
+
+```{r M22022-data-prep, echo=FALSE}
+data_list <- data_list_3 
+
+idx <- seq(1, 8, by=1)
+
+All_Cases <- c(data_list[[ idx[1] ]]$`Abstract ID`,  data_list[[ idx[2] ]]$`Abstract ID`) ## all cases/controls ID
+for (ii in c(1,3,6,8) ) { ## ii <- 1
+  if (ii < 4){
+    tmp <-  rbind(data_list[[ii]], data_list[[ii+1]]) 
+  }
+  if (ii > 4){
+    tmp <-  rbind(data_list[[ii]], data_list[[ii-1]]) 
+  }
+  All_Cases <- cbind(All_Cases, tmp[, -1]) ## keep all but ID ... 
+}
+myvars <- c("_Overall", "_Inc1", "_Inc2", "_Inc3", "_Inc4")
+colnames(All_Cases) <- c("Abstract", 
+                         paste0("ChatGPT35", myvars), 
+                         paste0("ChatGPT40", myvars),
+                         paste0("Llama", myvars), 
+                         paste0("PaLM_BARD", myvars) 
+                         )
+All_Cases <- data.frame(All_Cases)
+
+## check for NA's
+# apply(is.na(All_Cases), 1, sum) ## by obs 
+# apply(is.na(All_Cases), 2, sum) ## by columns, most of them from BARD, 1 from LLAMA  
+
+## treat NA as 0, (for the LLAMA part, with only 1 obs with NA)
+All_abs <-  All_Cases
+All_abs[is.na(All_abs)] <- 0
+
+All_abs_Me2022 <- All_abs[, -c(16+(1:5))] ## remove PaLM_BARD
+```
+
+
+#### LCA approach for  Menon 2022
+
+```{r Me2022-LCA, echo=FALSE}
+
+myf <- cbind(Llama_Overall,     Llama_Inc1,        Llama_Inc2,        Llama_Inc3,        Llama_Inc4,        
+ ChatGPT35_Overall, ChatGPT35_Inc1,    ChatGPT35_Inc2,  ChatGPT35_Inc3,    ChatGPT35_Inc4,       
+ ChatGPT40_Overall, ChatGPT40_Inc1,    ChatGPT40_Inc2,  ChatGPT40_Inc3,    ChatGPT40_Inc4)~1
+
+myLCA <- xtan_LCA(mydata = All_abs_Me2022[, -1], f = myf, idx = 100)
+knitr::kable( myLCA$my_criteria)
+
+cat("Cross-tab of true label and LCA-derived class labels \n")
+
+knitr::kable( myLCA$K2_LCA_tab )
+knitr::kable( myLCA$K3_LCA_tab )
+knitr::kable( myLCA$K4_LCA_tab )
+knitr::kable( myLCA$K5_LCA_tab )
+knitr::kable( myLCA$K6_LCA_tab )
+```
+

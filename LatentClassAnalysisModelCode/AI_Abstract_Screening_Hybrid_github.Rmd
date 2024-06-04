@@ -1,0 +1,94 @@
+---
+title: "AI Abstract Screening ZeroShot and Hybrid github"
+author: "Xianming Tan"
+date: "2024-06-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+## Introduction
+
+This is to show how to perform zero-shot and hybrid approaches to abstract screening.
+
+We assume that we already have 
+
+- Embeddings for abstracts (object: "Abs_emb")
+  - We used embeddings based on Google PaLM embeddings (vector of dimension 768)
+- Ideal study description embedding (object: "prompt_emb")
+  - This embedding is based on the prompt (see "prompt_txt").
+- true label for abstracts (for hybrid approach we need to check some selected abstracts) (object: "mydata")
+
+## To load data 
+
+```{r DataLoad, echo=FALSE}
+load(file = "zeroshot_hybrid_data.RData")
+```
+
+## Zero-shot Approach
+
+```{r zero-shot-PaLM, echo=FALSE}
+## Function to calculate cosine similarity
+cosine_similarity <- function(vector1, vector2) {
+  return(sum(vector1 * vector2) / (sqrt(sum(vector1^2)) * sqrt(sum(vector2^2))))
+}
+
+## to calculate similarity score between abstracts (embeddings) and the prompt (embeddings)
+similarity_promt <- apply(Abs_emb, 1, function(Abs_emb) {
+      cosine_similarity(prompt_emb, Abs_emb) } 
+  )
+
+## abstract labels based on zero-shot similarity score 
+##  we label the top 10% as "positive" (to include) abstracts. 
+zeroshot_cut_off <- 0.90 ## for zero-shot cut-off 
+zeroshot_label <- ( similarity_promt > quantile(similarity_promt, zeroshot_cut_off) )   
+
+## check the performance (refer to true labels for abstracts)
+table(zeroshot_label, mydata$label_included)
+```
+
+
+## Hybrid Approach
+
+- In the hybrid approach, we first identify the "positive" abstracts identified by the zero-shot approach. 
+
+- We then correct the labels for these abstracts, i.e., review each of these abstracts and correct the label if an abstract is "negative" based on human expert review. 
+
+- Given these abstracts and the corrected labels, we then perform a classification analysis (e.g., using a support vector machine (SVM)) based on the embeddings of these abstracts and the curated labels (from the zero shot and human correction on some). 
+
+- We predict the labels for other abstracts (based on the abstract embedding).
+
+
+```{r hubrid-PaLM, echo=FALSE}
+library(e1071) ## package for svm 
+
+train_idx <- (similarity_promt > quantile(similarity_promt, zeroshot_cut_off) )
+
+set.seed(1234567) ## to ensure reproducibility 
+## to get optimal tuning parameters 
+model_optim <- tune.svm(x = Abs_emb[train_idx, ] , y = factor(mydata$label_included[train_idx] ),
+                        type = "C-classification", kernel = "radial",
+                        gamma = exp( log(2)*seq(-15,3, by = 2) ) , cost = exp( log(2)*seq(-5,15, by = 2) ) ,
+                        tunecontrol= tune.control(sampling = "cross", cross = 3))
+
+model_optim$best.parameters
+# e.g., gamma = 0.01, cost = c(0.1, 1, 1.5),
+
+### fit svm with  optimal tuning parameters 
+svmmodel <- svm(x = Abs_emb[train_idx, ] , y = factor(mydata$label_included[train_idx] ),
+             type = "C-classification", kernel = "radial",
+             gamma = model_optim$best.parameters$gamma, 
+             cost = model_optim$best.parameters$cost,
+             probability = TRUE)
+
+## prediction based on fitted svm model 
+scores <- predict(svmmodel, Abs_emb, probability = TRUE)
+
+scores_p <- data.frame(doc_id = mydata$Covidence.., score = attr(scores, which = "probabilities")[, "1"])
+
+## check the performance (refer to true labels for abstracts)
+table(scores_p[,2] > quantile(scores_p[,2], zeroshot_cut_off), mydata$label_included)
+```
+
